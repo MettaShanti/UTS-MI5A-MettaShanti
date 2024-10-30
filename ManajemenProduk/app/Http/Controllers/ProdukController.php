@@ -14,8 +14,7 @@ class ProdukController extends Controller
     {
         //panggil model produk
         $result = Produk::all();
-
-        // kirim data $result ke view produk/index.blade.php
+        //dd($result);
         return view('produk.index')->with('produk', $result);
     }
 
@@ -80,21 +79,20 @@ class ProdukController extends Controller
     }
 
     public function getProduk(){
-        $reponse['data'] = Produk::all();
+        $response['data'] = Produk::all();
         $response['message'] = 'List data manajemen produk';
         $response['success'] = true;
 
         return response()->json($response, 200);
     }
-    public function storeProdukpetshop(Request $request){
+    public function storeProduk(Request $request){
         $input = $request->validate([
-            "nama"          =>"required",
-            "kategori"      =>"required",
-            "jumlah"        =>"required",
-            "tanggal_masuk" =>"required"
+            "namaproduk"        =>"required",
+            "jumlahproduk"      =>"required",
+            "deskripsiproduk"   =>"required"
         ]);
-        $hasil = Produk::create($input);
-        if($hasil){// jika berhasil disimpan
+        $produk = Produk::create($input);
+        if($produk){// jika berhasil disimpan
             $response['success'] = true;
             $response['message'] = $request->nama. " Berhasil Disimpan";
             return response()->json($response, 201); // 201 create atau sudah berhasil disimpan
@@ -104,19 +102,20 @@ class ProdukController extends Controller
             return response()->json($response, 400); //400 bad request
         }
     }
-    public function destroyProduk($id){
-        // cari data di table produk berdasarkan "id" produk
-        $produk = Produk::find($id);
-        //dd($produk);
-        $hasil = $produk->delete();
-        if($hasil){// jika berhasil disimpan
-            $response['success'] = true;
-            $response['message'] =" Produk Berhasil Dihapus";
-            return response()->json($response, 201); // 201 create atau sudah berhasil disimpan
-        }else{
-            $response['success'] = false;
-            $response['message'] =  "Produk gagal dihapus";
-            return response()->json($response, 400); //400 bad request
-        }
-    }
+
+    // public function destroyProduk($id){
+    //     // cari data di table produk berdasarkan "id" produk
+    //     $produk = Produk::find($id);
+    //     //dd($produk);
+    //     $produk = $produk->delete();
+    //     if($produk){// jika berhasil disimpan
+    //         $response['success'] = true;
+    //         $response['message'] =" Produk Berhasil Dihapus";
+    //         return response()->json($response, 201); // 201 create atau sudah berhasil disimpan
+    //     }else{
+    //         $response['success'] = false;
+    //         $response['message'] =  "Produk gagal dihapus";
+    //         return response()->json($response, 400); //400 bad request
+    //     }
+    // }
 }

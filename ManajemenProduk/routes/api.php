@@ -10,5 +10,5 @@ Route::get('/user', function (Request $request) {
 
 // manajemen produk
 Route::get("produk",[ProdukController::class, 'getProduk']);
-//Route::post("produk",[ProdukController::class, 'storeProduk']);
-//Route::delete("produk/{id}",[ProdukController::class, 'destroyProduk']);
+Route::post("produk",[ProdukController::class, 'storeProduk']);
+Route::delete("produk/{id}",[ProdukController::class, 'destroyProduk']);
